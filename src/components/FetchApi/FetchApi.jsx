@@ -2,7 +2,7 @@ const API_KEY = '0556b87ba267edab76fd3e7e8d7e5097';
 
 const TREND_URL = 'https://api.themoviedb.org/3/trending/movie/day';
 const ID_URL = 'https://api.themoviedb.org/3/movie/';
-const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie/';
+const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie';
 
 async function fetchMovie(url = '', config = {}) {
   const response = await fetch(url, config);
