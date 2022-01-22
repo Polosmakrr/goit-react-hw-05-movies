@@ -1,25 +1,21 @@
-import { useState,useEffect } from 'react';
-import *as FetchApi from '../FetchApi/FetchApi';
-import { useParams,} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import * as FetchApi from '../FetchApi/FetchApi';
+import { useParams } from 'react-router-dom';
 
 export default function Cast() {
-    const { id } = useParams();
-    // console.log('useParamCast:',id);
-    
-    const [cast, setCast] = useState(null);
+  const { id } = useParams();
 
-   
-    useEffect(() => {
-        FetchApi.fetchCast(id).then(setCast)
-    }, [])
+  const [cast, setCast] = useState(null);
 
-    // console.log('Cast:', cast);
-    
+  useEffect(() => {
+    FetchApi.fetchCast(id).then(setCast);
+  }, []);
 
-    return <>
-        {cast && (
+  return (
+    <>
+      {cast && (
         <ul>
-          {cast.cast.map((actor) => (
+          {cast.cast.map(actor => (
             <li key={actor.id}>
               <img
                 src={
@@ -35,5 +31,6 @@ export default function Cast() {
           ))}
         </ul>
       )}
-</>
-};
+    </>
+  );
+}

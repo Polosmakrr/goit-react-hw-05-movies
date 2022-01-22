@@ -1,27 +1,22 @@
-import { useState,useEffect } from 'react';
-import { useParams,Link,Outlet} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link, Outlet } from 'react-router-dom';
 
-import *as FetchApi from '../FetchApi/FetchApi';
+import * as FetchApi from '../FetchApi/FetchApi';
 
-export default function HomePage() { 
-    const {id} = useParams();
-    // console.log('p', {id});
-    
-    const [movie, setMovie] = useState(null)
+export default function HomePage() {
+  const { id } = useParams();
 
-    useEffect(() => {
-       FetchApi.fetchMovieDetail(id).then(setMovie)       
-    }, [])
+  const [movie, setMovie] = useState(null);
 
-    // console.log('movie:', movie);
+  useEffect(() => {
+    FetchApi.fetchMovieDetail(id).then(setMovie);
+  }, []);
 
-    return <>
-             {movie && (
-        <div>
+  return (
+    <>
+      {movie && (
+        <>
           <div>
-            <button type="button">
-              Back
-            </button>
             <img
               src={
                 movie.poster_path
@@ -39,23 +34,18 @@ export default function HomePage() {
             <h4>Ganres:</h4>
             <div>
               {movie.genres.map(({ id, name }) => (
-                <p key={id}>
-                  {name}
-                </p>
+                <p key={id}>{name}</p>
               ))}
             </div>
           </div>
-        </div>
+        </>
       )}
-       <h2>Additional information</h2>
-        <Link to={"Cast"}>
-        Cast
-        </Link>
-         <br/>
-        <Link to={"Reviev"}>
-        Rewiev
-        </Link>
-        
-        <Outlet />
+      <h2>Additional information</h2>
+      <Link to={'Cast'}>Cast</Link>
+      <br />
+      <Link to={'Reviev'}>Rewiev</Link>
+
+      <Outlet />
     </>
+  );
 }
