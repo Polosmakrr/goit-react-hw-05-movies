@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as FetchApi from '../FetchApi/FetchApi';
 import Button from '../Button/Button';
 import { ThreeDots } from 'react-loader-spinner';
@@ -10,6 +10,9 @@ export default function MoviesPage() {
   const [moviesList, setMoviesList] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
+  const nav = useNavigate();
 
   useEffect(() => {
     if (!searchName) {
@@ -26,6 +29,10 @@ export default function MoviesPage() {
         if (newArray) {
           console.log('array', newArray);
           setMoviesList([...moviesList, ...newArray.results]);
+          const searchParams = new URLSearchParams(location.search).set('search', queryName);
+
+          console.log('search:', searchParams);
+          console.log(location);
         }
         if (page > 1) {
           window.scrollTo({ top: document.body.clientHeight, behavior: 'smooth' });
@@ -48,6 +55,7 @@ export default function MoviesPage() {
       alert(`Введите запрос`);
     } else {
       onSubmit(queryName);
+      setMoviesList([]);
       setQueryName('');
       setPage(1);
     }

@@ -1,21 +1,34 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import * as FetchApi from '../FetchApi/FetchApi';
 
 export default function HomePage() {
   const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [movie, setMovie] = useState(null);
 
+  // console.log('location:', location);
+  // console.log('navigate:', navigate);
+
   useEffect(() => {
     FetchApi.fetchMovieDetail(id).then(setMovie);
+    console.log(location.pathname);
   }, []);
 
+  const goBack = () => {
+    navigate(-1);
+    console.log('click Back');
+  };
   return (
     <>
       {movie && (
         <>
+          <button type="button" onClick={goBack}>
+            Go back
+          </button>
           <div>
             <img
               src={
