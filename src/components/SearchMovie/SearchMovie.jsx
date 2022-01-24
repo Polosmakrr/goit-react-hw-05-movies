@@ -15,6 +15,14 @@ export default function MoviesPage() {
   const nav = useNavigate();
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search).get('query', queryName);
+    console.log('search:', searchParams);
+    if (searchParams) {
+      setSearchName(searchParams);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!searchName) {
       return;
     }
@@ -29,10 +37,7 @@ export default function MoviesPage() {
         if (newArray) {
           console.log('array', newArray);
           setMoviesList([...moviesList, ...newArray.results]);
-          const searchParams = new URLSearchParams(location.search).set('search', queryName);
-
-          console.log('search:', searchParams);
-          console.log(location);
+          nav({ search: `query=${searchName}` });
         }
         if (page > 1) {
           window.scrollTo({ top: document.body.clientHeight, behavior: 'smooth' });

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+// import SearchMovie from '../SearchMovie/SearchMovie'
 
 import * as FetchApi from '../FetchApi/FetchApi';
 
@@ -21,6 +22,9 @@ export default function HomePage() {
   const goBack = () => {
     navigate(-1);
     console.log('click Back');
+    //   console.log('location:', location);
+    // console.log('navigate:', navigate);
+    // console.log(SearchMovie.arguments)
   };
   return (
     <>
